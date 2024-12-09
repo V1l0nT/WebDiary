@@ -1,0 +1,49 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link rel="stylesheet" href="/css/header-footer.css">
+    <link rel="stylesheet" href="/css/life.css">
+    <link rel="stylesheet" href="/css/font.css">
+    <title>WebDiary: Список задач</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<header th:insert="~{parts :: header}" class="header"></header>
+<main>
+    <div class="lifeText">
+        <h2>Дневник</h2>
+    </div>
+    <div class="mainpage">
+        <div th:each="dia: ${diaries}">
+            <div th:insert="~{parts :: diary}"></div>
+        </div>
+    </div>
+    <input type="hidden" id="user-name" th:value="${name}">
+    <footer th:insert="~{parts :: footer}"></footer>
+    <script src="/js/auth.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('.add_bar').forEach(button => {
+                button.addEventListener('click', () => {
+                    const diaryId = button.dataset.id;
+                    const username = document.getElementById('user-name').value;
+                    fetch(`/graphql-life`, {
+                        method: `POST`,
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify({
+                            query:
+                                `mutation{
+                                    addDiaryToPlanners(diaryId: ${diaryId}, username: "${username}"){id}
+                                }`
+                        })
+                    });
+                });
+            });
+        });
+    </script>
+    <div class="footer-copyright"><p>© Вилков Никита Андреевич ИКБО-30-22</p></div>
+</main>
+</body>
+</html>

@@ -1,0 +1,28 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link rel="stylesheet"  href="/css/header-footer.css">
+    <link rel="stylesheet"  href="/css/home.css">
+    <link rel="stylesheet"  href="/css/font.css">
+    <title>WebDiary: Главная страница</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<header th:insert="~{parts :: header}" class="header"></header>
+<main>
+    <div class="mainpage">
+        <div class="banner">
+            <h1>WebDiary</h1>
+        </div>
+        <a href="planner">
+            <div class="banner">
+                <h1> Перейти к задачам!</h1>
+            </div>
+        </a>
+    </div>
+    <footer th:insert="~{parts :: footer}"></footer>
+    <div class="footer-copyright"><p>© Вилков Никита Андреевич ИКБО-30-22</p></div>
+    <script src="/js/auth.js"></script>
+</main>
+</body>
+</html>

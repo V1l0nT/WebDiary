@@ -1,0 +1,88 @@
+<div th:fragment="header">
+    <a href="home" class="logo"><img src="images/favicon.png" width="30px" height="30px"><b>WebDiary</b></a>
+    <input class="menu-btn" type="checkbox" id="menu-btn" />
+    <label class="menu-icon" for="menu-btn"><span class="navicon"></span></label>
+    <ul class="menu">
+        <li><a href="home">Главная страница</a></li>
+        <li><a href="life">Дневник</a></li>
+        <li sec:authorize="!isAuthenticated()">
+            <a href="login">Войти</a>
+        </li>
+        <li sec:authorize="!isAuthenticated()">
+            <a href="reg">Зарегистрироваться</a>
+        </li>
+        <li>
+            <a href="planner">Список задач</a>
+        </li>
+    </ul>
+</div>
+
+<div th:fragment="footer" class="footer-container">
+    <div class="footer-element footer-aboutus">
+        <h2>О нас</h2>
+        <p>WebDiary — ваш надежный спутник в ведении дневника и планировании задач. Записывайте свои мысли, фиксируйте важные события и отслеживайте прогресс в выполнении задач.</p>
+        <ul class="footer-buttons">
+            <li><div class="socialbutton vk"><img style="z-index:1; position:relative;" src="images/vk.png" width="35" height="35"></div></li>
+            <li><div class="socialbutton yt"><img style="z-index:1; position:relative;" src="images/yt.png" width="35" height="25"></div></li>
+            <li><div class="socialbutton rd"><img style="z-index:1; position:relative;" src="images/rd.png" width="35" height="35"></div></li>
+        </ul>
+    </div>
+    <div class="footer-element footer-menu">
+        <h2>Ссылки-меню</h2>
+        <ul>
+            <li><a href="home">Главная страница</a></li>
+            <li><a href="life">Дневник</a></li>
+            <li sec:authorize="!isAuthenticated()">
+                <a href="login">Войти</a>
+            </li>
+            <li sec:authorize="!isAuthenticated()">
+                <a href="reg">Зарегистрироваться</a>
+            </li>
+            <li>
+                <a href="planner">Список задач</a>
+            </li>
+        </ul>
+    </div>
+    <div class="footer-element footer-contacts">
+        <h2>Контакты</h2>
+        <ul class="contacts-info">
+            <li>
+                <img src="images/pin.png" width="25" height="25">
+                <p>г.Москва, <br>проспект Вернадского,<br> д. 78</p>
+            </li>
+            <li>
+                <img src="images/phone.png" width="25" height="25">
+                <p><a href="tel:+7999999999">+7(999)999-99-99</a></p>
+            </li>
+            <li>
+                <img src="images/email.png" width="25" height="25">
+                <p><a href="mailto:12345@yandex.ru">12345@yandex.ru</a></p>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<div th:fragment="diary" class="diaryBlock">
+    <div class="diaryImg">
+        <img th:src="@{'data:image/png;base64,' + ${diary.generateBase64Image()}}" alt="">
+    </div>
+    <div class="diaryInfo">
+        <h2 th:text="${diary.name}"/>
+        <p>
+            <strong>Дата:</strong>
+            <span th:text="${diary.releaseDate}"></span>
+        </p>
+        <p th:text="${diary.description}"/>
+        <p>
+            <strong>Приоритет:</strong>
+            <span th:text="${diary.rating}"></span>
+        </p>
+        <p th:if="${diary.series}">
+            <strong>Количество задач:</strong>
+            <span th:text="${#aggregates.sum(diary.episodes.values())}"/>
+        </p>
+        <div class="diaryButton">
+            <button th:data-id="${diary.id}" class="add_bar">Добавить в список задач</button>
+        </div>
+    </div>
+</div>

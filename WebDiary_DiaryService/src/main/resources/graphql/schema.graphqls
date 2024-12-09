@@ -1,0 +1,43 @@
+type Diary {
+    id: ID!
+    name: String!
+    releaseDate: String
+    description: String
+    rating: Float
+    series: Boolean
+    episodes: JSON
+    img: String
+}
+
+scalar JSON
+
+type Episode {
+    season: String
+    count: Int
+}
+
+input EpisodeInput {
+    season: String!
+    count: Int!
+}
+
+input DiaryInput {
+    name: String!
+    releaseDate: String
+    description: String
+    rating: Float
+    series: Boolean
+    episodes: [EpisodeInput!]
+    img: String
+}
+
+type Query {
+    getDiaryById(id: ID!): Diary
+    getAllDiaries: [Diary!]
+}
+
+type Mutation {
+    createDiary(input: DiaryInput!): Diary
+    updateDiary(id: ID!, input: DiaryInput!): Diary
+    deleteDiary(id: ID!): Boolean
+}

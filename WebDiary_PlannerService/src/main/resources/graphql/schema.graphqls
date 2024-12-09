@@ -1,0 +1,29 @@
+type Planner {
+    id: ID!
+    userId: ID!
+    diaryId: ID!
+    totalEpisodes: Int
+    watchedEpisodes: Int
+    userRating: Float
+    status: String
+}
+
+input PlannerInput {
+    userId: ID!
+    diaryId: ID!
+    totalEpisodes: Int
+    watchedEpisodes: Int
+    rating: Float
+    status: String
+}
+
+type Query {
+    getUsersPlanners(userId: ID!): [Planner!]
+}
+
+type Mutation {
+    addDiaryToPlanners(diaryId: ID!, username: String!): Planner
+    changeStatus(id: ID!, status: String!): Planner
+    changeRating(id: ID!, rating: Float!): Planner
+    incrementEpisodes(id: ID!): Planner
+}
